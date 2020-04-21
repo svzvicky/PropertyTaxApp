@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ import com.mindtree.taxapp.services.ZoneService;
 
 @Controller
 public class TaxController {
+	
+	private static final Logger logger = Logger.getLogger(TaxController.class);
 	
 	@Autowired
 	CategoryService categoryservice;
@@ -50,7 +53,7 @@ public class TaxController {
 	public String showAssessment(Model model) {
 		List<Category> categories = categoryservice.getCategories();
 		List<Zone> zones = zoneService.getZones();
-		// System.out.println(zones);
+		// logger.info(zones);
 		model.addAttribute("zones", zones);
 		model.addAttribute("categories", categories);
 		model.addAttribute("taxAssessment", new TaxAssessment());
@@ -76,7 +79,7 @@ public class TaxController {
 				ex.printStackTrace();
 				flag = false;
 			}
-			System.out.println("Save Flag Value=" + flag);
+			logger.info("Save Flag Value=" + flag);
 			if (flag) {
 				model.addAttribute("message", message);
 				return "index";
@@ -91,19 +94,19 @@ public class TaxController {
 	public float calculateTax(HttpServletRequest request) {
 
 		String zone = request.getParameter("zone");
-		System.out.println("Selected Zone=" + zone);
+		logger.info("Selected Zone=" + zone);
 
 		int category = Integer.parseInt(request.getParameter("category"));
-		System.out.println("Selected Category=" + category);
+		logger.info("Selected Category=" + category);
 
 		String status = request.getParameter("status");
-		System.out.println("Selected Status=" + status);
+		logger.info("Selected Status=" + status);
 
 		int year = Integer.parseInt(request.getParameter("Year"));
-		System.out.println("Enetered Year=" + year);
+		logger.info("Enetered Year=" + year);
 
 		float buildingArea = Float.parseFloat(request.getParameter("buildingArea"));
-		System.out.println("Entered Bulding Area=" + buildingArea);
+		logger.info("Entered Bulding Area=" + buildingArea);
 
 		double totalTax = taxService.taxCalculation(zone, category, status, year, buildingArea);
 
