@@ -46,6 +46,7 @@ public class TaxController {
 
 	@RequestMapping("/")
 	public String showHomePage() {
+		logger.info("Home Page Loaded");
 		return "index";
 	}
 
@@ -79,9 +80,10 @@ public class TaxController {
 				ex.printStackTrace();
 				flag = false;
 			}
-			logger.info("Save Flag Value=" + flag);
+			logger.debug("Save Flag Value=" + flag);
 			if (flag) {
 				model.addAttribute("message", message);
+				logger.info(message);
 				return "index";
 			}
 			return "redirect:/";
@@ -94,19 +96,19 @@ public class TaxController {
 	public float calculateTax(HttpServletRequest request) {
 
 		String zone = request.getParameter("zone");
-		logger.info("Selected Zone=" + zone);
+		logger.debug("Selected Zone=" + zone);
 
 		int category = Integer.parseInt(request.getParameter("category"));
-		logger.info("Selected Category=" + category);
+		logger.debug("Selected Category=" + category);
 
 		String status = request.getParameter("status");
-		logger.info("Selected Status=" + status);
+		logger.debug("Selected Status=" + status);
 
 		int year = Integer.parseInt(request.getParameter("Year"));
-		logger.info("Enetered Year=" + year);
+		logger.debug("Enetered Year=" + year);
 
 		float buildingArea = Float.parseFloat(request.getParameter("buildingArea"));
-		logger.info("Entered Bulding Area=" + buildingArea);
+		logger.debug("Entered Bulding Area=" + buildingArea);
 
 		double totalTax = taxService.taxCalculation(zone, category, status, year, buildingArea);
 
