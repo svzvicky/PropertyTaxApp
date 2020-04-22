@@ -77,7 +77,7 @@ public class TaxController {
 			try {
 				flag = taxService.saveTaxFiling(taxAssessment);
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				logger.error(ex);
 				flag = false;
 			}
 			logger.debug("Save Flag Value=" + flag);
