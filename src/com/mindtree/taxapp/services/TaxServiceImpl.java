@@ -3,6 +3,7 @@ package com.mindtree.taxapp.services;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,8 @@ import com.mindtree.taxapp.model.TaxAssessment;
 
 @Service
 public class TaxServiceImpl implements TaxService {
+	
+	private static final Logger logger = Logger.getLogger(TaxServiceImpl.class);
 
 	@Autowired
 	TaxDAO taxAssessmentDAO;
@@ -51,43 +54,43 @@ public class TaxServiceImpl implements TaxService {
 	@Transactional
 	public double taxCalculation(String zone, int category, String status, int year, float buildingArea) {
 		
-		System.out.print("Begining Tax Calculation...!");
-		System.out.println("Received Values => Zone:" + zone+ "+++Category:" + category + "+++status:" + status  + "+++ Builiding Constructed Year:"+ year +"+++ Area of the buidling:"+buildingArea);
+		logger.info("Begining Tax Calculation...!");
+		logger.debug("Received Values => Zone:" + zone+ "+++Category:" + category + "+++status:" + status  + "+++ Builiding Constructed Year:"+ year +"+++ Area of the buidling:"+buildingArea);
 		
 		float UAV = taxAssessmentDAO.getUnitAreaValue(zone,category,status);
-		System.out.println("UAV Value ="+ UAV);
+		logger.debug("UAV Value ="+ UAV);
 		
 		//Calculating the Total 1
 		float Total_1 = buildingArea * UAV * 10;
-		System.out.println("Total 1 Calculated["+Total_1+"]="+ "buildingArea["+ buildingArea + "] * unit area Value[" + UAV +"] * 10");
+		logger.debug("Total 1 Calculated["+Total_1+"]="+ "buildingArea["+ buildingArea + "] * unit area Value[" + UAV +"] * 10");
 		
 		// Calculating the Age of the Building
 		float buildingAge = 0;
 		if(year > 0) {
 			buildingAge = Calendar.getInstance().get(Calendar.YEAR)- year;
-			System.out.println("Age of the building:[ "+ buildingAge + "] = Current Year:[" + Calendar.getInstance().get(Calendar.YEAR) + "]- Builiding Constructed Year:["+year + "]");
+			logger.debug("Age of the building:[ "+ buildingAge + "] = Current Year:[" + Calendar.getInstance().get(Calendar.YEAR) + "]- Builiding Constructed Year:["+year + "]");
 		}
 		
 		//Calculating the depreciation
 		float depreciation;
 		if (buildingAge < 60) {
 			depreciation = (buildingAge/100);
-			System.out.println("depreciation1:"+ depreciation);
+			logger.debug("depreciation1:"+ depreciation);
 		} else {
 			depreciation = (float) 0.6;
-			System.out.println("depreciation2:"+ depreciation);
+			logger.debug("depreciation2:"+ depreciation);
 		}
 		
 		//Calculating the Total 2
 		double Total_2 = (Total_1 - depreciation);
-		System.out.println("Total_2["+Total_2+"]=Total_1["+Total_1+"] - depreciation["+depreciation+"]");
+		logger.debug("Total_2["+Total_2+"]=Total_1["+Total_1+"] - depreciation["+depreciation+"]");
 		
 		double Total_3 = Total_2 * 0.2;
-		System.out.println("Total_3="+Total_3);
+		logger.debug("Total_3="+Total_3);
 		double Total_4 = Total_3 * 0.24;
-		System.out.println("Total_4="+Total_4);
+		logger.debug("Total_4="+Total_4);
 		double totalTax = Total_3 + Total_4;
-		System.out.println("totalTax="+totalTax);
+		logger.debug("totalTax="+totalTax);
 		
 		return totalTax;
 	}
