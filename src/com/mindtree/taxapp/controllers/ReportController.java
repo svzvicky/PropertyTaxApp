@@ -14,18 +14,17 @@ import com.mindtree.taxapp.services.TaxService;
 @Controller
 @RequestMapping("/report")
 public class ReportController {
-	
+
 	private static final Logger logger = Logger.getLogger(ReportController.class);
-	
+
 	@Autowired
 	TaxService taxService;
-	
+
 	@RequestMapping("/zonal")
 	public String showReportPage(Model model) {
 		List<Report> reportUI = taxService.zonalReport();
 		model.addAttribute("reportUI", reportUI);
 		logger.info("Report Loaded");
-		logger.debug(reportUI);
 		return "zonalreport";
 	}
 

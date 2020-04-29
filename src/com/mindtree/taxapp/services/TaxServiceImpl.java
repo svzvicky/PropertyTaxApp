@@ -98,7 +98,6 @@ public class TaxServiceImpl implements TaxService {
 	@Override
 	@Transactional
 	public List<Report> zonalReport() {
-		// TODO Auto-generated method stub
 		return taxAssessmentDAO.zonalReport();
 	}
 
