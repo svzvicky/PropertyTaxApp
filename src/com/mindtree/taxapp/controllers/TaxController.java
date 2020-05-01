@@ -2,6 +2,7 @@ package com.mindtree.taxapp.controllers;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,9 +29,9 @@ import com.mindtree.taxapp.services.ZoneService;
 
 @Controller
 public class TaxController {
-	
+
 	private static final Logger logger = Logger.getLogger(TaxController.class);
-	
+
 	@Autowired
 	CategoryService categoryservice;
 	@Autowired
@@ -45,8 +46,9 @@ public class TaxController {
 	}
 
 	@RequestMapping("/")
-	public String showHomePage() {
-		logger.info("Home Page Loaded");
+	public String showHomePage(Locale locale) {
+
+		logger.info("Home Page Loaded with locale as " + locale);
 		return "index";
 	}
 
