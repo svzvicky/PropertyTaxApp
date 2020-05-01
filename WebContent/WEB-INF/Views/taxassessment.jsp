@@ -49,8 +49,7 @@
 
 		<div class="row">
 			<div class="col-12">
-				<h2 class="offset-1 page-header">Self Assessment of Property
-					Tax Form</h2>
+				<h2 class="offset-1 page-header"><spring:message code="taxApp.taxAssessment.form.title"></spring:message></h2>
 			</div>
 		</div>
 
@@ -60,8 +59,7 @@
 					modelAttribute="taxAssessment" cssClass="form-horizontal"
 					role="form">
 					<div class="form-group row">
-						<label for="yearofAssessment" class="col-4 col-form-label">Year
-							of Assessment</label>
+						<label for="yearofAssessment" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.yearOfAssessment"></spring:message></label>
 						<div class="col-6">
 							<form:input path="yearofAssessment" cssClass="form-control" />
 							<form:errors path="yearofAssessment" cssClass="alert-danger" />
@@ -69,8 +67,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="nameofOwner" class="col-4 col-form-label">Name
-							of the Owner</label>
+						<label for="nameofOwner" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.nameOfOwner"></spring:message></label>
 						<div class="col-6">
 							<form:input id="ownername" path="nameofOwner"
 								cssClass="form-control" />
@@ -79,7 +76,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="ownerEmail" class="col-4 col-form-label">Email</label>
+						<label for="ownerEmail" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.email"></spring:message></label>
 						<div class="col-6">
 							<form:input path="ownerEmail" cssClass="form-control" />
 							<form:errors path="ownerEmail" cssClass="alert-danger" />
@@ -87,8 +84,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="addressofProperty" class="col-4 col-form-label">Address
-							of Property</label>
+						<label for="addressofProperty" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.address"></spring:message></label>
 						<div class="col-6">
 							<form:textarea path="addressofProperty" rows="4"
 								cssClass="form-control" />
@@ -97,8 +93,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="zonalClassification" class="col-4 col-form-label">Zonal
-							Classification</label>
+						<label for="zonalClassification" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.zone"/></label>
 						<div class="col-6">
 							<select id="zone" onchange="calculateTax();"
 								name="zonalClassification">
@@ -112,8 +107,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="propertyDescription" class="col-4 col-form-label">Description
-							of the Property</label>
+						<label for="propertyDescription" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.propertyDesc"/></label>
 						<div class="col-6">
 							<select id="category" onchange="calculateTax()"
 								name="propertyDescription">
@@ -125,7 +119,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="status" class="col-4 col-form-label">Status</label>
+						<label for="status" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.status"></spring:message></label>
 						<div class="col-6">
 							<form:select id="status" onchange="calculateTax()" path="status">
 								<form:option value="">Select Status</form:option>
@@ -137,8 +131,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="buildingConstructedYear" class="col-4 col-form-label">Building
-							Constructed Year</label>
+						<label for="buildingConstructedYear" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.formbuildingConstructedYear"></spring:message></label>
 						<div class="col-6">
 							<form:input id="consYear" onchange="calculateTax()"
 								path="buildingConstructedYear" cssClass="form-control" />
@@ -148,8 +141,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="builtUpArea" class="col-4 col-form-label">Built
-							up Area (Square feet)</label>
+						<label for="builtUpArea" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.builtUpArea"></spring:message></label>
 						<div class="col-6">
 							<form:input id="buildingArea" onchange="calculateTax()"
 								path="builtUpArea" cssClass="form-control" />
@@ -158,26 +150,25 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="totalTaxPayable" class="col-4 col-form-label">Total
-							Tax Payable</label>
+						<label for="totalTaxPayable" class="col-4 col-form-label"><spring:message code="taxApp.taxAssessment.form.totalTax"></spring:message></label>
 						<div class="col-3">
 							<form:input id="totalTax" type="number" path="totalTaxPayable"
 								cssClass="form-control" readonly="true" />
 							<form:errors path="totalTaxPayable" cssClass="alert-danger" />
 						</div>
-						<div class="col-5">[Computation from above details]</div>
+						<div class="col-5"><spring:message code="taxApp.taxAssessment.form.infoMsg"></spring:message></div>
 					</div>
 
 					<!-- <div class="col-3"><p>[Computation from details provided above]</p></div> -->
 
 					<div class="form-group row">
 						<div class="col-4">
-							<a href="<c:url value='/' />" class="btn btn-primary">Cancel</a>
+							<a href="<c:url value='/' />" class="btn btn-primary"><spring:message code="taxApp.taxAssessment.nav.button.cancel"></spring:message></a>
 							<!--<input type="button" onclick="location.href='/home';" value="Cancel" name="btnSubmit"
 								class=" btn btn-primary"> -->
 						</div>
 						<div class="col-6">
-							<input type="submit" value="Pay Tax" name="btnSubmit"
+							<input type="submit" value="<spring:message code="taxApp.taxAssessment.nav.button.payTax"></spring:message>" name="btnSubmit"
 								class=" btn btn-primary">
 						</div>
 					</div>

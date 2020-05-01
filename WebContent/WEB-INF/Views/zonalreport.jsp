@@ -6,21 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome to the Tax App</title>
+<title><spring:message code="taxApp.browserTab.title" ></spring:message></title>
 </head>
 <body>
 	<div class="container">
 		<%@ include file="header.jsp"%>
-		<h1 class="text-center display-5">Zonal wise Collection of
-			Property Tax</h1>
+		<h1 class="text-center display-5"><spring:message code="taxApp.report.zonal.title"></spring:message></h1>
 		<div class="row">
 			<div class="offset-2 col-8">
 				<table class="table table-bordered table-hover">
 					<thead class="bg-info">
 						<tr>
-							<th>Zone Name</th>
-							<th>Property Type</th>
-							<th>Amount Collected</th>
+							<th><spring:message code="taxApp.report.zonal.table.header.zoneName"></spring:message></th>
+							<th><spring:message code="taxApp.report.zonal.table.header.propertyType"></spring:message></th>
+							<th><spring:message code="taxApp.report.zonal.table.header.amtCollected"></spring:message></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,7 +34,7 @@
 				</table>
 			</div>
 			<div class="offset-2 col-8 text-right">
-				<a href="<c:url value='/' />" class="btn btn-outline-info btn-block">Click here to go Back..!</a>
+				<a href="<c:url value='/' />" class="btn btn-outline-info btn-block"><spring:message code="taxApp.report.zonal.navLink.goBack"></spring:message></a>
 			</div>
 
 		</div>
