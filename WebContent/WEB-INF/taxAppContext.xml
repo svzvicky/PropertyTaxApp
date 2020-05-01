@@ -21,7 +21,8 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 
-	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
+	<mvc:resources mapping="/resources/**"
+		location="/resources/"></mvc:resources>
 
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
@@ -36,12 +37,25 @@
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>WEB-INF/tax</value>
+				<value>WEB-INF/Locale/taxApp</value>
 			</list>
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
-	
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+		<property name="cookieName" value="myAppLocaleCookie"></property>
+		<property name="cookieMaxAge" value="3600"></property>
+	</bean>
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="locale" />
+		</bean>
+	</mvc:interceptors>
+
 	<!-- Defining the Data Source -->
 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -52,12 +66,11 @@
 		<property name="user" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
-	
+
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan"
-			value="com.mindtree.taxapp"></property>
+		<property name="packagesToScan" value="com.mindtree.taxapp"></property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -65,15 +78,15 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<!-- Hibernate Transaction Manager -->
 	<bean id="myTransactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	
+
 	<!-- Config for Transactional Annonation -->
 	<tx:annotation-driven
 		transaction-manager="myTransactionManager" />
-	
+
 </beans>
