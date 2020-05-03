@@ -2,6 +2,7 @@ package com.mindtree.taxapp.controllers;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,9 +29,9 @@ import com.mindtree.taxapp.services.ZoneService;
 
 @Controller
 public class TaxController {
-	
+
 	private static final Logger logger = Logger.getLogger(TaxController.class);
-	
+
 	@Autowired
 	CategoryService categoryservice;
 	@Autowired
@@ -45,7 +46,9 @@ public class TaxController {
 	}
 
 	@RequestMapping("/")
-	public String showHomePage() {
+	public String showHomePage(Locale locale) {
+
+		logger.info("Home Page Loaded with locale as " + locale);
 		return "index";
 	}
 
@@ -76,12 +79,13 @@ public class TaxController {
 			try {
 				flag = taxService.saveTaxFiling(taxAssessment);
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				logger.error(ex);
 				flag = false;
 			}
-			logger.info("Save Flag Value=" + flag);
+			logger.debug("Save Flag Value=" + flag);
 			if (flag) {
 				model.addAttribute("message", message);
+				logger.info(message);
 				return "index";
 			}
 			return "redirect:/";
@@ -94,19 +98,19 @@ public class TaxController {
 	public float calculateTax(HttpServletRequest request) {
 
 		String zone = request.getParameter("zone");
-		logger.info("Selected Zone=" + zone);
+		logger.debug("Selected Zone=" + zone);
 
 		int category = Integer.parseInt(request.getParameter("category"));
-		logger.info("Selected Category=" + category);
+		logger.debug("Selected Category=" + category);
 
 		String status = request.getParameter("status");
-		logger.info("Selected Status=" + status);
+		logger.debug("Selected Status=" + status);
 
 		int year = Integer.parseInt(request.getParameter("Year"));
-		logger.info("Enetered Year=" + year);
+		logger.debug("Enetered Year=" + year);
 
 		float buildingArea = Float.parseFloat(request.getParameter("buildingArea"));
-		logger.info("Entered Bulding Area=" + buildingArea);
+		logger.debug("Entered Bulding Area=" + buildingArea);
 
 		double totalTax = taxService.taxCalculation(zone, category, status, year, buildingArea);
 

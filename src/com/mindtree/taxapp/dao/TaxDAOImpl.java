@@ -1,10 +1,10 @@
 package com.mindtree.taxapp.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -17,6 +17,8 @@ import com.mindtree.taxapp.model.TaxAssessment;
 
 @Repository
 public class TaxDAOImpl implements TaxDAO {
+	
+	private static final Logger logger = Logger.getLogger(TaxDAOImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -54,7 +56,7 @@ public class TaxDAOImpl implements TaxDAO {
 		String hql = "";
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			System.out.println("\n Category Value in DAO impl" + category);
+			logger.debug("\n Category Value in DAO impl" + category);
 
 			if (zone.contains("A")) {
 				hql = "Select ZoneA from UnitAreaValueEntity uav where uav.Category_id=:Category and uav.Status=:status";
@@ -64,13 +66,13 @@ public class TaxDAOImpl implements TaxDAO {
 				hql = "Select Zone" + zone
 						+ " from UnitAreaValueEntity uav where uav.Category_id=:Category and uav.Status=:status";
 			}
-			System.out.println("Fired Query =" + hql);
+			logger.debug("Fired Query =" + hql);
 			Query query = session.createQuery(hql);
 			query.setParameter("Category", category);
 			query.setParameter("status", status);
 			List result = query.list();
 
-			System.out.println("Result Set" + result);
+			logger.debug("Result Set" + result);
 
 			Iterator iterator = result.iterator();
 
@@ -96,18 +98,18 @@ public class TaxDAOImpl implements TaxDAO {
 		// Hibernate values
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
-		System.out.println("Executed Query" + hql);
+		logger.debug("Executed Query" + hql);
 		List<Object[]> result = query.getResultList();
 
 		for (int i = 0; i < result.size(); i++) {
 			Object[] row = (Object[]) result.get(i);
 			Report report = new Report();
 			report.setZone((String) row[0]);
-			System.out.println("Report zone contents" + report.getZone());
+			logger.debug("Report zone contents" + report.getZone());
 			report.setPropertyType((String) row[1]);
-			System.out.println("Report proptype contents" + report.getPropertyType());
+			logger.debug("Report proptype contents" + report.getPropertyType());
 			report.setAmountCollected(((double) row[2]));
-			System.out.println("Report amount contents" + report.getAmountCollected());
+			logger.debug("Report amount contents" + report.getAmountCollected());
 			reportList.add(report);
 		}
 
