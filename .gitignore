@@ -103,3 +103,9 @@ hs_err_pid*
 
 ##maven##
 /target/
+
+##Project Test Work
+/taxApp_fr.properties
+/taxApp_ta_IN.properties
+/log4j.properties
+/header2.jsp
