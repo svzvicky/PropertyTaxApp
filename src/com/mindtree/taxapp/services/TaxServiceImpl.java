@@ -26,29 +26,6 @@ public class TaxServiceImpl implements TaxService {
 		return taxAssessmentDAO.saveTaxFiling(taxAssessmnet);
 	}
 
-/*	@Override
-	@Transactional
-	public double tax(TaxAssessment taxAssessment) {
-
-		//float UAV = taxAssessmentDAO.getUnitAreaValue(taxAssessment.getPropertyDescription(),taxAssessment.getZonalClassification(),taxAssessment.getStatus());
-		float Total_1 = taxAssessment.getBuiltUpArea() * UAV * 10;
-
-		// Calculating the Age of the Building
-		int buildingAge = taxAssessment.getBuildingConstructedYear() - Calendar.getInstance().get(Calendar.YEAR);
-		double depreciation;
-		if (buildingAge < 60) {
-			depreciation = buildingAge / 100;
-		} else {
-			depreciation = 0.6;
-		}
-
-		double Total_2 = Total_1 - depreciation;
-		double Total_3 = Total_2 * 0.2;
-		double Total_4 = Total_3 * 0.24;
-		double totalTax = Total_3 + Total_4;
-
-		return totalTax;
-	}*/
 
 	@Override
 	@Transactional
