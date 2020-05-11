@@ -286,8 +286,8 @@
 	</dependencies>
 	
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<!-- <testSourceDirectory>src/test/java</testSourceDirectory> -->
+<!-- 		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory> -->
 		<finalName>MTTaxApp2</finalName>
 		<plugins>
 			<plugin>
