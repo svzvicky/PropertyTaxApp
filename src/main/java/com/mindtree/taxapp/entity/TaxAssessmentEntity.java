@@ -132,4 +132,74 @@ public class TaxAssessmentEntity {
 		this.totalTax = totalTax;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + AssessmentID;
+		result = prime * result + AssessmentYear;
+		result = prime * result + buildingArea;
+		result = prime * result + buildingConstructedYear;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((ownerName == null) ? 0 : ownerName.hashCode());
+		result = prime * result + ((propertyAddress == null) ? 0 : propertyAddress.hashCode());
+		result = prime * result + ((propertyDescription == null) ? 0 : propertyDescription.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + Float.floatToIntBits(totalTax);
+		result = prime * result + ((zone == null) ? 0 : zone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaxAssessmentEntity other = (TaxAssessmentEntity) obj;
+		if (AssessmentID != other.AssessmentID)
+			return false;
+		if (AssessmentYear != other.AssessmentYear)
+			return false;
+		if (buildingArea != other.buildingArea)
+			return false;
+		if (buildingConstructedYear != other.buildingConstructedYear)
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (ownerName == null) {
+			if (other.ownerName != null)
+				return false;
+		} else if (!ownerName.equals(other.ownerName))
+			return false;
+		if (propertyAddress == null) {
+			if (other.propertyAddress != null)
+				return false;
+		} else if (!propertyAddress.equals(other.propertyAddress))
+			return false;
+		if (propertyDescription == null) {
+			if (other.propertyDescription != null)
+				return false;
+		} else if (!propertyDescription.equals(other.propertyDescription))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (Float.floatToIntBits(totalTax) != Float.floatToIntBits(other.totalTax))
+			return false;
+		if (zone == null) {
+			if (other.zone != null)
+				return false;
+		} else if (!zone.equals(other.zone))
+			return false;
+		return true;
+	}
+
 }
