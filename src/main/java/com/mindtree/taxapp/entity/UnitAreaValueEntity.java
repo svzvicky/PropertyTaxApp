@@ -10,10 +10,10 @@ import javax.persistence.Table;
 public class UnitAreaValueEntity {
 	
 	@Id
-	@Column(name = "ID")
+	@Column(name = "UID")
 	private int Id;
 
-	@Column(name = "category_id")
+	@Column(name = "FK_CategoryID")
 	private int Category_id;
 
 	@Column(name = "status")
