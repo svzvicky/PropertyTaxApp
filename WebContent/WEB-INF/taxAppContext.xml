@@ -21,8 +21,7 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 
-<!-- 	<mvc:resources mapping="/resources/**"
-		location="/resources/"></mvc:resources> -->
+	<!-- <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources> -->
 
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
@@ -51,7 +50,8 @@
 	</bean>
 
 	<mvc:interceptors>
-		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="locale" />
 		</bean>
 	</mvc:interceptors>
@@ -89,5 +89,9 @@
 	<!-- Config for Transactional Annonation -->
 	<tx:annotation-driven
 		transaction-manager="myTransactionManager" />
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
 
 </beans>
