@@ -9,10 +9,10 @@ import javax.persistence.Table;
 @Table(name="Zones")
 public class ZoneEntity {
 	
-	@Id
 	@Column(name="ZoneID")
 	private int id;
 	
+	@Id
 	@Column(name="ZoneName")
 	private String name;
 	
