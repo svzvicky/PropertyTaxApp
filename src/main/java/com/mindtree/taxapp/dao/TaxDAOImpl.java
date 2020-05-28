@@ -1,5 +1,6 @@
 package com.mindtree.taxapp.dao;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,7 +12,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mindtree.taxapp.entity.CategoryEntity;
 import com.mindtree.taxapp.entity.TaxAssessmentEntity;
+import com.mindtree.taxapp.entity.ZoneEntity;
 import com.mindtree.taxapp.model.Report;
 import com.mindtree.taxapp.model.TaxAssessment;
 
@@ -28,6 +31,14 @@ public class TaxDAOImpl implements TaxDAO {
 
 		boolean saveFlag = true;
 		TaxAssessmentEntity taxAssessmentEntity = new TaxAssessmentEntity();
+		CategoryEntity categoryEntity = new CategoryEntity();
+		ZoneEntity zoneEntity = new ZoneEntity();
+		
+		int CategoryID = Integer.parseInt(taxAssessment.getPropertyDescription());
+		categoryEntity.setCat_id(CategoryID);
+		//zoneEntity.setName("D");
+		zoneEntity.setName(taxAssessment.getZonalClassification());
+		
 		taxAssessmentEntity.setAssessmentYear(taxAssessment.getYearofAssessment());
 		taxAssessmentEntity.setOwnerName(taxAssessment.getNameofOwner());
 		taxAssessmentEntity.setEmail(taxAssessment.getOwnerEmail());
@@ -38,6 +49,12 @@ public class TaxDAOImpl implements TaxDAO {
 		taxAssessmentEntity.setBuildingConstructedYear(taxAssessment.getBuildingConstructedYear());
 		taxAssessmentEntity.setBuildingArea(taxAssessment.getBuiltUpArea());
 		taxAssessmentEntity.setTotalTax(taxAssessment.getTotalTaxPayable());
+		taxAssessmentEntity.setCreatedateTime(LocalDateTime.now());
+		
+		//Using entities to insert the values
+		taxAssessmentEntity.setCategory(categoryEntity);
+		taxAssessmentEntity.setZoneEntity(zoneEntity);
+		
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.save(taxAssessmentEntity);
