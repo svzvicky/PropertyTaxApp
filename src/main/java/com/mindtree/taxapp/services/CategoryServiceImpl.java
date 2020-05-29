@@ -19,13 +19,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional
-	public List<Category> getCategories() {
-		return categoryDAO.getCategories();
-
-	}
-
-	@Override
-	@Transactional
 	public List<Category> getCategory() {
 		
 		List<CategoryEntity> entityList = categoryDAO.getCategory();
