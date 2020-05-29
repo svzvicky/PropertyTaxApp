@@ -8,4 +8,6 @@ public interface CategoryService {
 
 	public List<Category> getCategories();
 
+	public List<Category> getCategory();
+
 }
