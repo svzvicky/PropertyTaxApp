@@ -54,7 +54,7 @@ public class TaxController {
 
 	@RequestMapping("/assessment")
 	public String showAssessment(Model model) {
-		List<Category> categories = categoryservice.getCategories();
+		List<Category> categories = categoryservice.getCategory();
 		List<Zone> zones = zoneService.getZones();
 		// logger.info(zones);
 		model.addAttribute("zones", zones);
