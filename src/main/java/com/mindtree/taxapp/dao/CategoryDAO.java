@@ -9,4 +9,6 @@ public interface CategoryDAO {
 	public List<Category> getCategoryDesc();
 
 	public List<Category> getCategories();
+	
+	public boolean addCategories();
 }

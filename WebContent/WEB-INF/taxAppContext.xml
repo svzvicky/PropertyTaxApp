@@ -21,8 +21,7 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 
-<!-- 	<mvc:resources mapping="/resources/**"
-		location="/resources/"></mvc:resources> -->
+	<!-- <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources> -->
 
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
@@ -51,7 +50,8 @@
 	</bean>
 
 	<mvc:interceptors>
-		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="locale" />
 		</bean>
 	</mvc:interceptors>
@@ -62,7 +62,7 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/taxappdb" /> <!-- jdbc:mysql://localhost:3306/taxappdb?useSSL=false -->
+			value="jdbc:mysql://localhost:3306/taxappdb1" /> <!-- jdbc:mysql://localhost:3306/taxappdb?useSSL=false -->
 		<property name="user" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
@@ -73,8 +73,9 @@
 		<property name="packagesToScan" value="com.mindtree.taxapp"></property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>
@@ -88,5 +89,9 @@
 	<!-- Config for Transactional Annonation -->
 	<tx:annotation-driven
 		transaction-manager="myTransactionManager" />
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
 
 </beans>

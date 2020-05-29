@@ -24,6 +24,8 @@ public class TaxAssessment {
 	private String zonalClassification;
 
 	private String propertyDescription;
+	
+	private int categoryID;
 
 	@NotBlank(message="Please select status")
 	private String status;
@@ -48,11 +50,12 @@ public class TaxAssessment {
 		buildingConstructedYear = 0;
 		builtUpArea = 0;
 		totalTaxPayable = 0;
+		categoryID=0;
 	}
 
 	public TaxAssessment(Integer yearofAssessment, String nameofOwner, String ownerEmail, String addressofProperty,
 			String zonalClassification, String propertyDescription, String status, Integer buildingConstructedYear,
-			Integer builtUpArea, float totalTaxPayable) {
+			Integer builtUpArea, float totalTaxPayable,int categoryID) {
 		super();
 		this.yearofAssessment = yearofAssessment;
 		this.nameofOwner = nameofOwner;
@@ -64,6 +67,7 @@ public class TaxAssessment {
 		this.buildingConstructedYear = buildingConstructedYear;
 		this.builtUpArea = builtUpArea;
 		this.totalTaxPayable = totalTaxPayable;
+		this.categoryID = categoryID;
 	}
 
 	public Integer getYearofAssessment() {
@@ -144,6 +148,14 @@ public class TaxAssessment {
 
 	public void setTotalTaxPayable(float totalTaxPayable) {
 		this.totalTaxPayable = totalTaxPayable;
+	}
+
+	public int getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 
 }

@@ -1,8 +1,15 @@
 package com.mindtree.taxapp.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,10 +18,10 @@ public class TaxAssessmentEntity {
 	
 	@Id
 	@Column(name="AssesmentID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int AssessmentID;
 
-	
-	@Column(name="AssessmentYear")
+	@Column(name="AssessmentYear",nullable = false, length = 5)
 	private int AssessmentYear;
 	
 	@Column(name="OwnerName")
@@ -26,10 +33,18 @@ public class TaxAssessmentEntity {
 	@Column(name="PropertyAddress")
 	private String propertyAddress;
 	
-	@Column(name="Zone")
+	@ManyToOne
+	@JoinColumn(name="Zone_FK",foreignKey = @ForeignKey(name="ZoneName"))
+	private ZoneEntity zoneEntity;
+	
+	@Column(name="FK_ZoneName")
 	private String zone;
 	
-	@Column(name="PropertyDescription")
+	@ManyToOne
+	@JoinColumn(name="PropertyCategoryID",foreignKey = @ForeignKey(name="CategoryID"))
+	private CategoryEntity category;
+	
+	@Column(name="FK_CategoryID")
 	private String propertyDescription;
 	
 	@Column(name="Status")
@@ -44,6 +59,17 @@ public class TaxAssessmentEntity {
 	@Column(name="TotalTax")
 	private float totalTax;
 	
+	@Column(name="CreatedDateTime")
+	private LocalDateTime createdateTime;
+	
+	public LocalDateTime getCreatedateTime() {
+		return createdateTime;
+	}
+
+	public void setCreatedateTime(LocalDateTime localDateTime) {
+		this.createdateTime = localDateTime;
+	}
+
 	public int getAssessmentID() {
 		return AssessmentID;
 	}
@@ -130,6 +156,22 @@ public class TaxAssessmentEntity {
 
 	public void setTotalTax(float totalTax) {
 		this.totalTax = totalTax;
+	}
+
+	public ZoneEntity getZoneEntity() {
+		return zoneEntity;
+	}
+
+	public void setZoneEntity(ZoneEntity zoneEntity) {
+		this.zoneEntity = zoneEntity;
+	}
+
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
 	}
 
 }

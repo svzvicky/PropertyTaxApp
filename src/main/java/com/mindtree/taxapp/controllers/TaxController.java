@@ -74,21 +74,28 @@ public class TaxController {
 			model.addAttribute("categories", categories);
 			return "taxassessment";
 		} else {
-			String message = "Tax details are saved successfully";
+			String errorMessage = "Error Occurred";
 			boolean flag = false;
 			try {
 				flag = taxService.saveTaxFiling(taxAssessment);
 			} catch (Exception ex) {
-				logger.error(ex);
+				if(ex.toString().contains("ConstraintViolationException")) {
+					errorMessage = "Data Save Error Occurred. Please contact App Owner";
+				}
+				logger.debug(ex);
 				flag = false;
 			}
 			logger.debug("Save Flag Value=" + flag);
 			if (flag) {
+				String message = "Tax details are saved successfully";
 				model.addAttribute("message", message);
 				logger.info(message);
 				return "index";
 			}
-			return "redirect:/";
+			
+			model.addAttribute("errorMessage", errorMessage);
+			return "taxassessment";
+			//return "redirect:/";
 		}
 
 	}

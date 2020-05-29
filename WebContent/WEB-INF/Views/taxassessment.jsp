@@ -55,6 +55,7 @@
 
 		<div class="row">
 			<div class="offset-1 col-8">
+			<text class="alert-danger">${errorMessage} </text>
 				<form:form id="taxSave" action="saveTax"
 					modelAttribute="taxAssessment" cssClass="form-horizontal"
 					role="form">
