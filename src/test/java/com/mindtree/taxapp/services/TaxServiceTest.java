@@ -14,7 +14,7 @@ import com.mindtree.taxapp.services.TaxService;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:D:\\My-Garage-2\\SandBox\\mttaxapp2-maven\\WebContent\\WEB-INF\\taxAppContext.xml")
 @Transactional
-public class SampleTest {
+public class TaxServiceTest {
 	
 	@Test
 	void testRun() {
