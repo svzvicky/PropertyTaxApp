@@ -68,7 +68,7 @@ public class TaxController {
 			Model model) {
 
 		if (result.hasErrors()) {
-			List<Category> categories = categoryservice.getCategories();
+			List<Category> categories = categoryservice.getCategory();
 			List<Zone> zones = zoneService.getZones();
 			model.addAttribute("zones", zones);
 			model.addAttribute("categories", categories);
