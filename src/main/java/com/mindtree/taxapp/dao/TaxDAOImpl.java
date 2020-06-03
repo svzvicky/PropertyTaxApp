@@ -68,6 +68,7 @@ public class TaxDAOImpl implements TaxDAO {
 		return saveFlag;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public float getUnitAreaValue(String zone, int category, String status) {
 
@@ -106,6 +107,7 @@ public class TaxDAOImpl implements TaxDAO {
 		return uav_value;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public List<Report> zonalReport() {
 
@@ -163,10 +165,10 @@ public class TaxDAOImpl implements TaxDAO {
 				.createQuery("From TaxAssessmentEntity", TaxAssessmentEntity.class).list();
 
 		logger.info("TaxRecords Size= " + taxRecords.size());
-		
+
 		double amountCollection_A_Owner = 0;
 		double amountCollection_A_Tenanted = 0;
-		
+
 		for (TaxAssessmentEntity r : taxRecords) {
 			logger.info(r.getAssessmentID());
 
@@ -176,14 +178,14 @@ public class TaxDAOImpl implements TaxDAO {
 				}
 				if (r.getStatus().equalsIgnoreCase("Tenanted")) {
 					amountCollection_A_Tenanted = amountCollection_A_Tenanted + r.getTotalTax();
-			}
+				}
 			}
 
 		}
-		
-		logger.info("amountCollection_A_Owner = "+amountCollection_A_Owner);
-		logger.info("amountCollection_A_Tenanted = "+amountCollection_A_Tenanted);
-		
+
+		logger.info("amountCollection_A_Owner = " + amountCollection_A_Owner);
+		logger.info("amountCollection_A_Tenanted = " + amountCollection_A_Tenanted);
+
 		return taxRecords;
 
 	}
