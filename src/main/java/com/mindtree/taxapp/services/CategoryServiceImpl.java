@@ -20,18 +20,17 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional
 	public List<Category> getCategory() {
-		
+
 		List<CategoryEntity> entityList = categoryDAO.getCategory();
 		List<Category> categoryList = new ArrayList<>();
-		
+
 		for (CategoryEntity c : entityList) {
 			Category category = new Category();
 			category.setId(c.getCat_id());
 			category.setName(c.getDescname());
 			categoryList.add(category);
 		}
-		// entityList.forEach(name -> category.setName(name.getDescname()));
-		
+
 		return categoryList;
 
 	}

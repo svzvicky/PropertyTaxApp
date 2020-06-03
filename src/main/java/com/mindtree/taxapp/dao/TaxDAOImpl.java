@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +22,7 @@ import com.mindtree.taxapp.model.TaxAssessment;
 
 @Repository
 public class TaxDAOImpl implements TaxDAO {
-	
+
 	private static final Logger logger = Logger.getLogger(TaxDAOImpl.class);
 
 	@Autowired
@@ -33,12 +35,12 @@ public class TaxDAOImpl implements TaxDAO {
 		TaxAssessmentEntity taxAssessmentEntity = new TaxAssessmentEntity();
 		CategoryEntity categoryEntity = new CategoryEntity();
 		ZoneEntity zoneEntity = new ZoneEntity();
-		
+
 		int CategoryID = Integer.parseInt(taxAssessment.getPropertyDescription());
 		categoryEntity.setCat_id(CategoryID);
-		//zoneEntity.setName("D");
+		// zoneEntity.setName("D");
 		zoneEntity.setName(taxAssessment.getZonalClassification());
-		
+
 		taxAssessmentEntity.setAssessmentYear(taxAssessment.getYearofAssessment());
 		taxAssessmentEntity.setOwnerName(taxAssessment.getNameofOwner());
 		taxAssessmentEntity.setEmail(taxAssessment.getOwnerEmail());
@@ -50,11 +52,11 @@ public class TaxDAOImpl implements TaxDAO {
 		taxAssessmentEntity.setBuildingArea(taxAssessment.getBuiltUpArea());
 		taxAssessmentEntity.setTotalTax(taxAssessment.getTotalTaxPayable());
 		taxAssessmentEntity.setCreatedateTime(LocalDateTime.now());
-		
-		//Using entities to insert the values
+
+		// Using entities to insert the values
 		taxAssessmentEntity.setCategory(categoryEntity);
 		taxAssessmentEntity.setZoneEntity(zoneEntity);
-		
+
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.save(taxAssessmentEntity);
@@ -116,6 +118,7 @@ public class TaxDAOImpl implements TaxDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hql);
 		logger.debug("Executed Query" + hql);
+		@SuppressWarnings("unchecked")
 		List<Object[]> result = query.getResultList();
 
 		for (int i = 0; i < result.size(); i++) {
@@ -131,6 +134,57 @@ public class TaxDAOImpl implements TaxDAO {
 		}
 
 		return reportList;
+
+	}
+
+	@Override
+	@Transactional
+	public List<Report> zonalReport_testImpl() {
+
+		// List<Report> reportList = new ArrayList<Report>();
+
+		// Query to retrive the data from DB
+		String hql = "select zone,status,round(sum(totalTax),2) as TotalTax FROM TaxAssessmentEntity  group by zone,status order by zone";
+
+		// Hibernate values
+		@SuppressWarnings(value = { "unchecked" })
+		List<Report> reportRecords = sessionFactory.getCurrentSession().createQuery(hql).list();
+		logger.debug("Executed Query" + hql);
+
+		return reportRecords;
+
+	}
+
+	@Override
+	@Transactional
+	public List<TaxAssessmentEntity> newZonalRewport() {
+
+		List<TaxAssessmentEntity> taxRecords = sessionFactory.getCurrentSession()
+				.createQuery("From TaxAssessmentEntity", TaxAssessmentEntity.class).list();
+
+		logger.info("TaxRecords Size= " + taxRecords.size());
+		
+		double amountCollection_A_Owner = 0;
+		double amountCollection_A_Tenanted = 0;
+		
+		for (TaxAssessmentEntity r : taxRecords) {
+			logger.info(r.getAssessmentID());
+
+			if (r.getZone().equalsIgnoreCase("B")) {
+				if (r.getStatus().equalsIgnoreCase("Owner")) {
+					amountCollection_A_Owner = amountCollection_A_Owner + r.getTotalTax();
+				}
+				if (r.getStatus().equalsIgnoreCase("Tenanted")) {
+					amountCollection_A_Tenanted = amountCollection_A_Tenanted + r.getTotalTax();
+			}
+			}
+
+		}
+		
+		logger.info("amountCollection_A_Owner = "+amountCollection_A_Owner);
+		logger.info("amountCollection_A_Tenanted = "+amountCollection_A_Tenanted);
+		
+		return taxRecords;
 
 	}
 }
