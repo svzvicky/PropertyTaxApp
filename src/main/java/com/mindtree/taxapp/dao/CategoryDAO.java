@@ -2,13 +2,12 @@ package com.mindtree.taxapp.dao;
 
 import java.util.List;
 
-import com.mindtree.taxapp.model.Category;
+import com.mindtree.taxapp.entity.CategoryEntity;
 
 public interface CategoryDAO {
 
-	public List<Category> getCategoryDesc();
+	public List<CategoryEntity> getCategory();
 
-	public List<Category> getCategories();
-	
 	public boolean addCategories();
+
 }

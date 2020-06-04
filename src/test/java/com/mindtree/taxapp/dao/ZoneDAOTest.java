@@ -9,25 +9,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mindtree.taxapp.entity.CategoryEntity;
+import com.mindtree.taxapp.model.Zone;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:D:\\My-Garage-2\\SandBox\\mttaxapp2-maven\\WebContent\\WEB-INF\\taxAppContext.xml")
-public class CategoryDAOTest {
+@Transactional
+public class ZoneDAOTest {
 	
 	@Autowired
-	CategoryDAO categoryDAO;
-
+	ZoneDAO zoneDAO;
+	
 	@Test
-	@Transactional
-	public void getCategoryTest() {
+	public void getZonesTest() {
 		
-		List<CategoryEntity> categoryEntityList = categoryDAO.getCategory();
-		
-		for (CategoryEntity c : categoryEntityList) {
-			System.out.println(c.getDescname());
+		List<Zone> list = zoneDAO.getZones();
+		for (Zone z : list) {
+			System.out.println(z.getName());
 		}
-
+		
 	}
 
 }

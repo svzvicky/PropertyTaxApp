@@ -14,13 +14,8 @@ import com.mindtree.taxapp.services.TaxService;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:D:\\My-Garage-2\\SandBox\\mttaxapp2-maven\\WebContent\\WEB-INF\\taxAppContext.xml")
 @Transactional
-public class SampleTest {
-	
-	@Test
-	void testRun() {
-		
-	}
-	
+public class TaxServiceTest {
+
 	@Autowired
 	TaxService taxService;
 
@@ -46,7 +41,7 @@ public class SampleTest {
 		// Verify the result
 		Assertions.assertEquals(true, result, "The Data is Saved");
 	}
-	
+
 	@Test
 	public void taxCalculationTest() {
 

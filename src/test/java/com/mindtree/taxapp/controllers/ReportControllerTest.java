@@ -1,32 +1,30 @@
-package com.mindtree.taxapp.dao;
+package com.mindtree.taxapp.controllers;
 
-import java.util.List;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.mindtree.taxapp.entity.CategoryEntity;
+import org.springframework.ui.Model;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("file:D:\\My-Garage-2\\SandBox\\mttaxapp2-maven\\WebContent\\WEB-INF\\taxAppContext.xml")
-public class CategoryDAOTest {
-	
+public class ReportControllerTest {
+
 	@Autowired
-	CategoryDAO categoryDAO;
+	private ReportController reportController;
 
 	@Test
-	@Transactional
-	public void getCategoryTest() {
+	void Test(Model model) throws Exception {
 		
-		List<CategoryEntity> categoryEntityList = categoryDAO.getCategory();
+		String view = reportController.showReportPage(model);
+		Assertions.assertEquals("zonalreport", view);
 		
-		for (CategoryEntity c : categoryEntityList) {
-			System.out.println(c.getDescname());
-		}
+	}
+
+	@Test
+	public void showReportPageTest(Model model) {
 
 	}
 

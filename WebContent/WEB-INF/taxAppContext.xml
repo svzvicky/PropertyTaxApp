@@ -62,7 +62,7 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/taxappdb1" /> <!-- jdbc:mysql://localhost:3306/taxappdb?useSSL=false -->
+			value="jdbc:mysql://localhost:3306/taxappdb1?createDatabaseIfNotExist=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8" /> <!-- jdbc:mysql://localhost:3306/taxappdb?useSSL=false -->
 		<property name="user" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
@@ -75,7 +75,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>

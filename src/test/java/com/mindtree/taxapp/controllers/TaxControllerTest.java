@@ -1,14 +1,15 @@
 package com.mindtree.taxapp.controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+import org.springframework.test.web.servlet.MockMvc;
 
 public class TaxControllerTest {
 	
+	private MockMvc mockMvc;
+	
 	@Test
-	void testRun() {
-		assertEquals("Vignesh", "Vignesh", "The data does not match");
+	public void contextLoads() {
+		mockMvc.perform(get("")).
 	}
 
 }
