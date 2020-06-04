@@ -39,9 +39,6 @@ public class TestController {
 	
 	@RequestMapping("/records")
 	public void taxAssessmentTest() {
-		//taxDAO.newZonalRewport();
-		//taxDAO.zonalReport_testImpl();
-		//categoryService.getCategory();
-		taxDAO.getUnitAreaValue1("A", 2, "Owner");
+		taxDAO.getUnitAreaValue("A", 2, "Owner");
 	}
 }
